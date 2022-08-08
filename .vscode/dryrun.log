@@ -1,19 +1,5 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/mkhan/Desktop/mlxpractise'
-/Library/Developer/CommandLineTools/usr/bin/make all -C mlx
- 
-make[1]: Entering directory `/Users/mkhan/Desktop/mlxpractise/mlx'
-cc -O2 -DSTRINGPUTX11   -c -o mlx_shaders.o mlx_shaders.c
-cc -O2 -DSTRINGPUTX11   -c -o mlx_new_window.o mlx_new_window.m
-cc -O2 -DSTRINGPUTX11   -c -o mlx_init_loop.o mlx_init_loop.m
-cc -O2 -DSTRINGPUTX11   -c -o mlx_new_image.o mlx_new_image.m
-cc -O2 -DSTRINGPUTX11   -c -o mlx_xpm.o mlx_xpm.c
-cc -O2 -DSTRINGPUTX11   -c -o mlx_int_str_to_wordtab.o mlx_int_str_to_wordtab.c
-cc -O2 -DSTRINGPUTX11   -c -o mlx_png.o mlx_png.c
-cc -O2 -DSTRINGPUTX11   -c -o mlx_mouse.o mlx_mouse.m
-ar -r libmlx.a mlx_shaders.o mlx_new_window.o mlx_init_loop.o mlx_new_image.o mlx_xpm.o mlx_int_str_to_wordtab.o mlx_png.o mlx_mouse.o
-ranlib libmlx.a
-make[1]: Leaving directory `/Users/mkhan/Desktop/mlxpractise/mlx'
-gcc -Wall -Wextra -Werror test.c -Lmlx -lmlx -framework OpenGL -framework AppKit -o fractol
+make: Nothing to be done for `all'.
 make: Leaving directory `/Users/mkhan/Desktop/mlxpractise'
  

@@ -6,7 +6,7 @@
 #    By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:06:53 by amalbrei          #+#    #+#              #
-#    Updated: 2022/07/27 18:38:58 by mkhan            ###   ########.fr        #
+#    Updated: 2022/08/08 16:13:31 by mkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	fractol
 CC		=	gcc
 SUBDIR	=	libft
 SUBLIB	=	ft
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g3
 RM		=	rm	-rf
 
 SRCS 	=	test.c
