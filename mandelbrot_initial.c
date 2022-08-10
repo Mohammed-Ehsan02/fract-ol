@@ -6,13 +6,12 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/10 12:23:42 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/09 17:03:30 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include "./mlx/mlx.h"
 
 typedef struct	s_data {
@@ -32,10 +31,6 @@ typedef struct	s_data {
 	double	view;
 	double	trans_x;
 	double	trans_y;
-	double	jx;
-	double	jy;
-	int		flag;
-	double	zoom;
 }				t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -90,51 +85,6 @@ void	plot_mandel(t_data *img)
 	}			
 }
 
-void	plot_julia(t_data *img)
-{
-	int i = 0;
-	int j = 0;
-	while (i < img->width)
-	{
-		double	temp1;
-		double	temp2;
-		double x;
-		double y;
-		
-		j = 0;
-		while (j < img->height)
-		{
-			if (img->jx != 0)
-			{
-				temp1 = 1.5 * (i - img->width / 2);
-				temp2 = (0.5 * img->view * img->width);
-				x = temp1 / temp2;
-			}
-			if (img->jy != 0)
-			{
-				temp1 = (j - img->height / 2);
-				temp2 = (0.5 * img->view * img->height);
-				y = temp1 / temp2;
-			}
-			int iteration = 0;
-			int max_iteration = 100;
-			img->trgb = 0;
-			
-			while (x*x + y*y < 4 && iteration < max_iteration)
-			{
-				double xtemp = x*x - y*y;
-				y = 2*x*y + img->jy;
-				x = xtemp + img->jx;
-				iteration = iteration + 1;
-			}
-			img->trgb = img->base_color * (iteration / (float)(max_iteration));
-			my_mlx_pixel_put(img, i, j, img->trgb);
-			j++;
-		}
-		i++;
-	}			
-}
-
 int	mouse(int mouse_code, int x, int y, t_data *img)
 {
 	(void)x;
@@ -149,10 +99,7 @@ int	mouse(int mouse_code, int x, int y, t_data *img)
 	{
 		img->view /= 1.1;
 	}
-	if (img->flag)
-		plot_mandel(img);
-	else
-		plot_julia(img);
+	plot_mandel(img);
 	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
 
 	return (0);
@@ -161,6 +108,8 @@ int	mouse(int mouse_code, int x, int y, t_data *img)
 void	color_shift(t_data *img, int color)
 {
 	img->base_color = color;
+		plot_mandel(img);
+	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
 }
 
 int	move(int keycode, t_data *img)
@@ -175,18 +124,32 @@ int	move(int keycode, t_data *img)
 	else if (keycode == 19)
 		color_shift(img, 0x12563478);
 	if (keycode == 2 || keycode == 124)
+	{
 		img->trans_x += 0.1;
-	if (keycode == 0 || keycode == 123)
-		img->trans_x += -0.1;
-	if (keycode == 13 || keycode == 126)
-		img->trans_y += -0.1; 
-	if (keycode == 1 || keycode == 125)
-		img->trans_y += 0.1;
-	if (img->flag)
 		plot_mandel(img);
-	else
-		plot_julia(img);
-	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+
+	}
+	if (keycode == 0 || keycode == 123)
+	{
+		img->trans_x += -0.1;
+		plot_mandel(img);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+
+	}
+	if (keycode == 13 || keycode == 126)
+	{
+		img->trans_y += -0.1; 
+		plot_mandel(img);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+
+	}
+	if (keycode == 1 || keycode == 125)
+	{
+		img->trans_y += 0.1;
+		plot_mandel(img);
+		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+	}
 	return (0);
 }
 
@@ -199,19 +162,12 @@ int	main(void)
 	img.base_color = 0x12345678;
 	img.trgb = 0;
 	img.view = (img.height + img.width) / 6;
-	img.zoom = 1.5;
-	img.jx = -0.8;
-	img.jy = 0.156;
-	img.flag = 0;
 	img.mlx = mlx_init();
 	img.mlx_win = mlx_new_window(img.mlx, img.width, img.height, "Hello world!");
 	img.img = mlx_new_image(img.mlx, img.width, img.height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
-	if (img.flag)
-		plot_mandel(&img);
-	else
-		plot_julia(&img);
+	plot_mandel(&img);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_hook(img.mlx_win, 2, 0, move, &img);
 	mlx_hook(img.mlx_win, 4, 0, mouse, &img);
