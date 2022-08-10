@@ -6,11 +6,58 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 17:26:01 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/09 20:00:34 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/10 14:49:21 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.c"
+#include "fractol.h"
+
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	count;
+
+	count = 0;
+	while (*s++)
+		count++;
+	s = s - count;
+	return (count);
+}
+
+int	ft_atoi(const char *str)
+{
+	int				count;
+	unsigned long	sum;
+
+	count = 1;
+	sum = 0;
+	sum = 0;
+	while (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\f'
+		|| *str == '\r' || *str == '\v')
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			count = -count;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		sum = sum * 10 + (*str - '0');
+		str++;
+		if (sum > 2147483648 && count == -1)
+			return (-1);
+		else if (sum > 2147483647 && count == 1)
+			return (-1);
+	}
+	return (sum * count);
+}
 
 int	atof_split(char c)
 {
@@ -29,6 +76,7 @@ int	atof_split(char c)
 
 double	ft_atof(char *str, t_data *img)
 {
+	(void)img;
 	double	i;
 	int		sign;
 	double	j;
@@ -50,7 +98,7 @@ double	ft_atof(char *str, t_data *img)
 		str++;
 	while (*str != '\0' && ft_isdigit(*str))
 		j = j + atof_split(*str++) / pow(10.0, k++);
-	if (*str != '\0' && !ft_isdigit(*str))
-		ft_error(img);
+	// if (*str != '\0' && !ft_isdigit(*str))
+	// 	ft_error(img);
 	return (sign * (i + j));
 }

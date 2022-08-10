@@ -6,7 +6,7 @@
 #    By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:06:53 by amalbrei          #+#    #+#              #
-#    Updated: 2022/08/09 14:52:31 by mkhan            ###   ########.fr        #
+#    Updated: 2022/08/10 18:03:58 by mkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@ NAME	=	fractol
 CC		=	gcc
 SUBDIR	=	libft
 SUBLIB	=	ft
-CFLAGS	=	-Wall -Wextra -Werror -g3 -Ofast
+CFLAGS	=	-Wall -Wextra -Werror -g3 -Ofast -fsanitize=address
 RM		=	rm	-rf
 
-SRCS 	=	test.c
+SRCS 	=	fractol.c events.c mandelbrot.c julia.c atof.c
 
 all: $(NAME)
 
