@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 17:26:01 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/10 14:49:21 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/11 10:09:48 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	atof_split(char c)
 
 double	ft_atof(char *str, t_data *img)
 {
-	(void)img;
 	double	i;
 	int		sign;
 	double	j;
 	int		k;
 
+	(void)img;
 	i = 0;
 	j = 0;
 	k = 1;
@@ -98,7 +98,7 @@ double	ft_atof(char *str, t_data *img)
 		str++;
 	while (*str != '\0' && ft_isdigit(*str))
 		j = j + atof_split(*str++) / pow(10.0, k++);
-	// if (*str != '\0' && !ft_isdigit(*str))
-	// 	ft_error(img);
+	if (*str != '\0' && !ft_isdigit(*str))
+		ft_error();
 	return (sign * (i + j));
 }

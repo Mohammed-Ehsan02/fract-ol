@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/10 18:09:08 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/11 10:25:17 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
+}
+
+int	ft_exit(void)
+{
+	exit (1);
+	return (0);
+}
+
+void	ft_error(void)
+{
+	write(1, "Wrong/Invalid arguments\n", 25);
+	write(1, "For Mandelbrot set: Run -> ./fractol\n", 37);
+	write(1, "For Julia set: Run -> ./fractol -0.8 0.156\n", 43);
+	exit(1);
 }
 
 void	init_fractol(t_data *img, int argc, char **argv)
@@ -68,10 +82,11 @@ int	main(int argc, char **argv)
 		}
 		mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 		mlx_hook(img.mlx_win, 2, 0, move, &img);
+		mlx_hook(img.mlx_win, 17, 1L << 17, ft_exit, 0);
 		mlx_hook(img.mlx_win, 4, 0, mouse, &img);
 		mlx_loop(img.mlx);
 	}
 	else
-		write(1, "a", 1);
+		ft_error();
 	return (0);
 }

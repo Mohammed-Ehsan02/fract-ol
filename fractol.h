@@ -6,19 +6,19 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:27:38 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/10 15:24:06 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/11 10:08:52 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <math.h>
 
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -26,7 +26,7 @@ typedef struct	s_data {
 	int		endian;
 	void	*mlx;
 	void	*mlx_win;
-	int 	height;
+	int		height;
 	int		width;
 	int		base_color;
 	int		trgb;
@@ -55,5 +55,6 @@ void	color_shift(t_data *img, int color);
 int		mouse(int mouse_code, int x, int y, t_data *img);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double	ft_atof(char *str, t_data *img);
+void	ft_error(void);
 
 #endif

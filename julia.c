@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:27:51 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/10 18:10:43 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/11 10:25:13 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_j(t_data *img, double x, double y)
 	while (x * x + y * y < 4 && img->iteration < img->max_iteration)
 	{
 		img->xtemp = x * x - y * y;
-		y = 2 * x * y + img->jy;
+		y = 2 * x * y - img->jy;
 		x = img->xtemp + img->jx;
 		img->iteration = img->iteration + 1;
 	}
