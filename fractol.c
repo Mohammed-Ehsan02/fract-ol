@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/11 10:25:17 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/28 14:07:21 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 #include <math.h>
 #include "./mlx/mlx.h"
 #include "fractol.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
-}
 
 int	ft_exit(void)
 {
@@ -33,8 +25,9 @@ int	ft_exit(void)
 void	ft_error(void)
 {
 	write(1, "Wrong/Invalid arguments\n", 25);
-	write(1, "For Mandelbrot set: Run -> ./fractol\n", 37);
+	write(1, "For Mandelbrot set: Run -> ./fractol 1\n", 39);
 	write(1, "For Julia set: Run -> ./fractol -0.8 0.156\n", 43);
+	write(1, "For Extra Fractol/ Burning Ship set: Run -> ./fractol 2\n", 57);
 	exit(1);
 }
 
@@ -57,9 +50,30 @@ void	init_fractol(t_data *img, int argc, char **argv)
 		img->jy = ft_atof(argv[2], img);
 		img->flag = 0;
 	}
-	else if (argc == 1)
-	{
+	else if (argc == 2 && ft_atoi(argv[1]) == 1)
 		img->flag = 1;
+	else if (argc == 2 && ft_atoi(argv[1]) == 2)
+		img->flag = 2;
+	else
+		ft_error();
+}
+
+void	plot_fractol(t_data *img)
+{
+	if (img->flag == 0)
+	{
+		img->view = 0.8;
+		plot_julia(img);
+	}
+	else if (img->flag == 1)
+	{
+		img->view = (img->height + img->width) / 6;
+		plot_mandel(img);
+	}
+	else if (img->flag == 2)
+	{
+		img->view = (img->height + img->width) / 6;
+		plot_bship(img);
 	}
 }
 
@@ -67,19 +81,10 @@ int	main(int argc, char **argv)
 {
 	t_data	img;
 
-	if (argc <= 3 && argc > 0 && argc != 2)
+	if (argc <= 3 && argc > 1)
 	{
 		init_fractol(&img, argc, argv);
-		if (img.flag)
-		{
-			img.view = (img.height + img.width) / 6;
-			plot_mandel(&img);
-		}
-		else
-		{
-			img.view = 0.8;
-			plot_julia(&img);
-		}
+		plot_fractol(&img);
 		mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 		mlx_hook(img.mlx_win, 2, 0, move, &img);
 		mlx_hook(img.mlx_win, 17, 1L << 17, ft_exit, 0);
