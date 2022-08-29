@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/28 14:07:21 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/29 14:12:26 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 #include <math.h>
 #include "./mlx/mlx.h"
 #include "fractol.h"
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*a;
+
+	a = (char *) s;
+	while (*a != (unsigned char) c)
+	{
+		if (!*a)
+			return (0);
+		a++;
+	}
+	return (a);
+}
 
 int	ft_exit(void)
 {
@@ -50,9 +64,9 @@ void	init_fractol(t_data *img, int argc, char **argv)
 		img->jy = ft_atof(argv[2], img);
 		img->flag = 0;
 	}
-	else if (argc == 2 && ft_atoi(argv[1]) == 1)
+	else if (argc == 2 && ft_atoi(argv[1]) == 1 && !ft_strchr(argv[1], '.'))
 		img->flag = 1;
-	else if (argc == 2 && ft_atoi(argv[1]) == 2)
+	else if (argc == 2 && ft_atoi(argv[1]) == 2 && !ft_strchr(argv[1], '.'))
 		img->flag = 2;
 	else
 		ft_error();
