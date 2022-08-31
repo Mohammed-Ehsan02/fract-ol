@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/29 14:12:26 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/31 14:16:12 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_error(void)
 
 void	init_fractol(t_data *img, int argc, char **argv)
 {
-	img->height = 560;
-	img->width = 640;
+	img->height = 1000;
+	img->width = 1600;
 	img->base_color = 0x12345678;
 	img->trgb = 0;
 	img->flag = 0;
