@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 12:27:38 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/28 14:32:25 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/31 15:57:38 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	color_shift(t_data *img, int color);
 int		mouse(int mouse_code, int x, int y, t_data *img);
 
 void	ft_error(void);
+int		ft_exit(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 /* ---- Libft and Modified Function atof for floats/double ---- */

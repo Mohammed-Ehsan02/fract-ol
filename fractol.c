@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/31 14:16:12 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/08/31 16:00:36 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,10 @@ char	*ft_strchr(const char *s, int c)
 	return (a);
 }
 
-int	ft_exit(void)
-{
-	exit (1);
-	return (0);
-}
-
-void	ft_error(void)
-{
-	write(1, "Wrong/Invalid arguments\n", 25);
-	write(1, "For Mandelbrot set: Run -> ./fractol 1\n", 39);
-	write(1, "For Julia set: Run -> ./fractol -0.8 0.156\n", 43);
-	write(1, "For Extra Fractol/ Burning Ship set: Run -> ./fractol 2\n", 57);
-	exit(1);
-}
-
 void	init_fractol(t_data *img, int argc, char **argv)
 {
-	img->height = 1000;
-	img->width = 1600;
+	img->height = 560;
+	img->width = 640;
 	img->base_color = 0x12345678;
 	img->trgb = 0;
 	img->flag = 0;

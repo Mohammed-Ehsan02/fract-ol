@@ -6,7 +6,7 @@
 #    By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 17:06:53 by amalbrei          #+#    #+#              #
-#    Updated: 2022/08/28 09:56:09 by mkhan            ###   ########.fr        #
+#    Updated: 2022/08/31 15:58:07 by mkhan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SUBLIB	=	ft
 CFLAGS	=	-Wall -Wextra -Werror -g3 -Ofast -fsanitize=address
 RM		=	rm	-rf
 
-SRCS 	=	fractol.c events.c mandelbrot.c julia.c atof.c burningship.c
+SRCS 	=	fractol.c events.c mandelbrot.c julia.c atof.c burningship.c \
+			error.c
 
 all: $(NAME)
 
