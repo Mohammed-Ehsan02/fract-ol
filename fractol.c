@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/09/05 13:14:53 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/09/08 14:14:02 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,9 @@ void	init_fractol(t_data *img, int argc, char **argv)
 		img->jy = ft_atof(argv[2], img);
 		img->flag = 0;
 	}
-	else if (argc == 2 //&& ft_atoi(argv[1]) == 1 && !ft_strchr(argv[1], '.')
-		&& ft_strcmp(argv[1], "1") == 0)
+	else if (argc == 2 && ft_strcmp(argv[1], "1") == 0)
 		img->flag = 1;
-	else if (argc == 2 //&& ft_atoi(argv[1]) == 2 && !ft_strchr(argv[1], '.')
-		&& ft_strcmp(argv[1], "2") == 0)
+	else if (argc == 2 && ft_strcmp(argv[1], "2") == 0)
 		img->flag = 2;
 	else
 		ft_error();
