@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:15:13 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/28 14:49:57 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/09/05 13:14:26 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ int	move(int keycode, t_data *img)
 		color_shift(img, 0x3456789a);
 	else if (keycode == 19)
 		color_shift(img, 0x12563478);
+	else if (keycode == 20)
+		color_shift(img, 0x0066ff00);
+	else if (keycode == 21)
+		color_shift(img, 0x00e71837);
 	translate_frac(img, keycode);
 	if (img->flag == 0)
 		plot_julia(img);
