@@ -6,7 +6,7 @@
 /*   By: mkhan <mkhan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:16:28 by mkhan             #+#    #+#             */
-/*   Updated: 2022/08/11 10:25:17 by mkhan            ###   ########.fr       */
+/*   Updated: 2022/09/08 14:14:02 by mkhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,28 @@
 #include "./mlx/mlx.h"
 #include "fractol.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	ft_strcmp(char *s1, char *s2)
 {
-	char	*dst;
+	int	i;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }
 
-int	ft_exit(void)
+char	*ft_strchr(const char *s, int c)
 {
-	exit (1);
-	return (0);
-}
+	char	*a;
 
-void	ft_error(void)
-{
-	write(1, "Wrong/Invalid arguments\n", 25);
-	write(1, "For Mandelbrot set: Run -> ./fractol\n", 37);
-	write(1, "For Julia set: Run -> ./fractol -0.8 0.156\n", 43);
-	exit(1);
+	a = (char *) s;
+	while (*a != (unsigned char) c)
+	{
+		if (!*a)
+			return (0);
+		a++;
+	}
+	return (a);
 }
 
 void	init_fractol(t_data *img, int argc, char **argv)
@@ -57,9 +59,30 @@ void	init_fractol(t_data *img, int argc, char **argv)
 		img->jy = ft_atof(argv[2], img);
 		img->flag = 0;
 	}
-	else if (argc == 1)
-	{
+	else if (argc == 2 && ft_strcmp(argv[1], "1") == 0)
 		img->flag = 1;
+	else if (argc == 2 && ft_strcmp(argv[1], "2") == 0)
+		img->flag = 2;
+	else
+		ft_error();
+}
+
+void	plot_fractol(t_data *img)
+{
+	if (img->flag == 0)
+	{
+		img->view = 0.8;
+		plot_julia(img);
+	}
+	else if (img->flag == 1)
+	{
+		img->view = (img->height + img->width) / 6;
+		plot_mandel(img);
+	}
+	else if (img->flag == 2)
+	{
+		img->view = (img->height + img->width) / 6;
+		plot_bship(img);
 	}
 }
 
@@ -67,19 +90,10 @@ int	main(int argc, char **argv)
 {
 	t_data	img;
 
-	if (argc <= 3 && argc > 0 && argc != 2)
+	if (argc <= 3 && argc > 1)
 	{
 		init_fractol(&img, argc, argv);
-		if (img.flag)
-		{
-			img.view = (img.height + img.width) / 6;
-			plot_mandel(&img);
-		}
-		else
-		{
-			img.view = 0.8;
-			plot_julia(&img);
-		}
+		plot_fractol(&img);
 		mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 		mlx_hook(img.mlx_win, 2, 0, move, &img);
 		mlx_hook(img.mlx_win, 17, 1L << 17, ft_exit, 0);
